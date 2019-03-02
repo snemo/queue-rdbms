@@ -1,0 +1,23 @@
+plugins {
+    id "com.github.lkishalmi.gatling" version "3.0.2"
+}
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'scala'
+
+dependencies {
+    compile 'org.scala-lang:scala-library:2.11.8'
+}
+
+gatling {
+    simulations = [
+            'com.nuxplanet.gatling.reactive.ReactiveOneItemSim',
+            'com.nuxplanet.gatling.reactive.ReactiveManyItemsSim',
+            'com.nuxplanet.gatling.reactive.ReactiveManyItemsBlockedSim',
+            'com.nuxplanet.gatling.imperative.ImperativeOneItemSim',
+            'com.nuxplanet.gatling.imperative.ImperativeManyItemsSim'
+    ]
+}

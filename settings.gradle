@@ -1,0 +1,2 @@
+rootProject.name = 'queue-rdbms'
+include "queue-impl", "perf", "common"
