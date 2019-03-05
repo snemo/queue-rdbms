@@ -12,6 +12,7 @@ buildscript {
 
 plugins {
     id 'com.google.cloud.tools.jib' version '1.0.0'
+    id 'nu.studer.jooq' version '3.0.3'
 }
 
 apply plugin: 'java'
@@ -31,10 +32,17 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-jooq'
+
     implementation 'org.liquibase:liquibase-core'
+    jooqRuntime 'org.postgresql:postgresql'
+
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'org.postgresql:postgresql'
+    compile 'org.postgresql:postgresql'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.2.0')
+    testCompile('org.junit.jupiter:junit-jupiter-params:5.2.0')
+    testRuntime('org.junit.jupiter:junit-jupiter-engine:5.2.0')
 }
 
 bootRun {
@@ -51,5 +59,31 @@ jib {
     container {
         jvmFlags = ['-Xmx1024m', '-Dserver.port=8081']
         ports = ['8081']
+    }
+}
+
+jooq {
+    version = '3.11.9'
+    edition = 'OSS'
+    sample(sourceSets.main) {
+        jdbc {
+            driver = 'org.postgresql.Driver'
+            url = 'jdbc:postgresql://localhost:5432/queue'
+            user = 'queue'
+            password = ''
+        }
+        generator {
+            name = 'org.jooq.codegen.DefaultGenerator'
+            database {
+                name = 'org.jooq.meta.postgres.PostgresDatabase'
+                inputSchema = 'public'
+                includes = '.*'
+                excludes = 'databasechangelog | databasechangeloglock'
+                recordVersionFields = 'version'
+            }
+            target {
+                packageName = 'com.nuxplanet.generated'
+            }
+        }
     }
 }
