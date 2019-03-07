@@ -1,6 +1,6 @@
 package com.nuxplanet.queuerdbms.logic;
 
-import com.nuxplanet.queuerdbms.logic.dto.QueueEmailCommand;
+import com.nuxplanet.queuerdbms.logic.dto.QueueItemCommand;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class QueueRepositoryTest {
 
     @Test
     public void should_add_new() {
-        System.out.println("id: " + repository.saveNew(new QueueEmailCommand("new", "some data")));
+        System.out.println("id: " + repository.saveNew(new QueueItemCommand("new", "some data")));
     }
 
 }

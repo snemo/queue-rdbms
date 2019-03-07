@@ -1,7 +1,6 @@
 package com.nuxplanet.queuerdbms.logic;
 
-import com.nuxplanet.generated.tables.EmailQueue;
-import com.nuxplanet.queuerdbms.logic.dto.QueueEmailCommand;
+import com.nuxplanet.queuerdbms.logic.dto.QueueItemCommand;
 import com.nuxplanet.queuerdbms.logic.dto.QueueId;
 import com.nuxplanet.queuerdbms.logic.dto.QueueItem;
 import org.jooq.DSLContext;
@@ -22,7 +21,7 @@ class QueueRepository {
         this.dsl = dsl;
     }
 
-    QueueId saveNew(QueueEmailCommand emailCommand) {
+    QueueId saveNew(QueueItemCommand emailCommand) {
         Record record = dsl.insertInto(EMAIL_QUEUE)
                 .set(EMAIL_QUEUE.VERSION, 0L)
                 .set(EMAIL_QUEUE.STATUS, emailCommand.getStatus())

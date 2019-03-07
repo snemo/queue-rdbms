@@ -1,6 +1,6 @@
 package com.nuxplanet.queuerdbms.logic;
 
-import com.nuxplanet.queuerdbms.logic.dto.QueueEmailCommand;
+import com.nuxplanet.queuerdbms.logic.dto.QueueItemCommand;
 import com.nuxplanet.queuerdbms.logic.dto.QueueId;
 import com.nuxplanet.queuerdbms.logic.dto.QueueItem;
 import lombok.AllArgsConstructor;
@@ -16,11 +16,11 @@ import java.util.Optional;
 @AllArgsConstructor
 class QueueController {
 
-    private final QueueService queueService;
+    private final QueueRDBMSService queueService;
 
     @GetMapping("/put/{someData}")
     public QueueId put(@PathVariable String someData) {
-        return queueService.put(new QueueEmailCommand("new", someData));
+        return queueService.add(new QueueItemCommand("new", someData));
     }
 
     @GetMapping("/peek")
